@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recruiting Pain Points Survey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F8FA;
+      --white: #FFFFFF;
+      --border: #E4E7ED;
+      --border-focus: #4F6BF4;
+      --accent: #4F6BF4;
+      --accent-light: #EEF1FE;
+      --accent-dark: #3A52D8;
+      --text-primary: #0F1523;
+      --text-secondary: #5A6478;
+      --text-muted: #9AA3B5;
+      --success: #16A34A;
+      --success-light: #DCFCE7;
+      --shadow-sm: 0 1px 3px rgba(15,21,35,0.06), 0 1px 2px rgba(15,21,35,0.04);
+      --shadow-md: 0 4px 16px rgba(15,21,35,0.08), 0 2px 6px rgba(15,21,35,0.04);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .logo-dot {
+      width: 28px;
+      height: 28px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-dot svg { width: 14px; height: 14px; fill: #fff; }
+
+    .topbar-right {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── Hero strip ── */
+    .hero {
+      background: linear-gradient(135deg, #3A52D8 0%, #6B7FEC 100%);
+      padding: 56px 32px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 100px;
+      padding: 5px 14px 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.02em;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .hero-tag-dot {
+      width: 6px; height: 6px;
+      background: #A5F3B0;
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── Content area ── */
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── Progress ── */
+    .progress-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .progress-info {
+      flex-shrink: 0;
+    }
+
+    .progress-count {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .progress-total {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #7B8FF7);
+      border-radius: 99px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    .progress-pct {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      width: 36px;
+      text-align: right;
+    }
+
+    /* ── Question cards ── */
+    .question-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .question-card:focus-within {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(79,107,244,0.1), var(--shadow-sm);
+    }
+
+    .q-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .q-num {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .q-label {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.45;
+    }
+
+    .q-hint {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ── Options ── */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      user-select: none;
+    }
+
+    .option-label:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .option-label:has(input:checked) {
+      border-color: var(--accent);
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Custom radio */
+    .option-label input[type="radio"],
+    .option-label input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #C8CDD9;
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      transition: all 0.15s;
+      background: var(--white);
+    }
+
+    .option-label input[type="checkbox"] {
+      border-radius: 5px;
+    }
+
+    .option-label:hover input[type="radio"],
+    .option-label:hover input[type="checkbox"] {
+      border-color: var(--accent);
+    }
+
+    .option-label input[type="radio"]:checked,
+    .option-label input[type="checkbox"]:checked {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .option-label input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      width: 6px; height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .option-label input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      width: 10px; height: 6px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    /* ── Textarea / text input ── */
+    textarea, input[type="text"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 12px 14px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      line-height: 1.6;
+    }
+
+    textarea { min-height: 108px; }
+
+    textarea:focus, input[type="text"]:focus {
+      border-color: var(--border-focus);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(79,107,244,0.08);
+    }
+
+    textarea::placeholder, input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .other-input { margin-top: 10px; }
+
+    /* ── Submit section ── */
+    .submit-area {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-top: 8px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .submit-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .submit-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .submit-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px rgba(79,107,244,0.35);
+      letter-spacing: 0.01em;
+    }
+
+    .submit-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(79,107,244,0.45);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+
+    .submit-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+    /* ── Thank you ── */
+    .thankyou {
+      display: none;
+      text-align: center;
+      padding: 72px 20px;
+    }
+
+    .ty-icon {
+      width: 72px; height: 72px;
+      background: var(--success-light);
+      border-radius: 50%;
+      margin: 0 auto 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ty-icon svg { width: 32px; height: 32px; }
+
+    .thankyou h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .thankyou p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    .ty-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      background: var(--success-light);
+      color: var(--success);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 520px) {
+      .topbar { padding: 0 16px; }
+      .hero { padding: 40px 20px 36px; }
+      .question-card { padding: 20px; }
+      .submit-area { flex-direction: column; align-items: stretch; }
+      .submit-btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-dot">
+      <svg viewBox="0 0 16 16"><path d="M8 1l2.5 5H14l-4 3.5 1.5 5L8 12l-3.5 2.5L6 9.5 2 6h3.5z"/></svg>
+    </div>
+    WorkflowIQ
+  </div>
+  <div class="topbar-right">Confidential · Research Survey</div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    Takes under 3 minutes
+  </div>
+  <h1>Help us eliminate your biggest<br>recruiting headaches</h1>
+  <p>We're building software that removes the most painful parts of hiring. Answer 5 questions and directly shape what we build.</p>
+</div>
+
+<!-- Main content -->
+<div class="content">
+
+  <div id="survey">
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <div class="progress-count" id="progressCount">0</div>
+        <div class="progress-total">of 5 done</div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-pct" id="progressPct">0%</div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-card">
+      <div class="q-header">
+        <div class="q-num">1</div>
+        <div>
+          <div class="q-label">What part of your recruiting process takes the most time each week?</div>
+        </div>
+      </div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q1" value="Sourcing candidates"> Sourcing candidates</label>
+        <label class="option-label"><input type="radio" name="q1" value="Screening & reviewing resumes"> Screening &amp; reviewing resumes</label>
+        <label class="option-label"><input type="radio" name="q1" value="Scheduling interviews"> Scheduling interviews</label>
+        <label class="option-label"><input type="radio" name="q1" value="Following up with candidates or clients"> Following up with candidates or clients</label>
+        <label class="option-label"><input type="radio" name="q1" value="Updating records & tracking progress"> Updating records &amp; tracking progress</label>
+        <label class="option-label"><input type="radio" name="q1" value="other-q1"> Something else</label>
+      </div>
+      <div class="other-input" id="other-q1-wrap" style="display:none;">
+        <input type="text" id="other-q1" placeholder="Describe it briefly…" />
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-card">
+      <div class="q-header">
+        <div class="q-num">2</div>
+        <div>
+          <div class="q-label">What repetitive task frustrates you or your team the most?</div>
+        </div>
+      </div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q2" value="Copy-pasting data between tools"> Copy-pasting data between tools</label>
+        <label class="option-label"><input type="radio" name="q2" value="Sending the same emails or messages repeatedly"> Sending the same emails or messages repeatedly</label>
+        <label class="option-label"><input type="radio" name="q2" value="Manual status updates for clients"> Manual status updates for clients</label>
+        <label class="option-label"><input type="radio" name="q2" value="Re-entering candidate information"> Re-entering candidate information</label>
+        <label class="option-label"><input type="radio" name="q2" value="Chasing approvals or responses"> Chasing approvals or responses</label>
+        <label class="option-label"><input type="radio" name="q2" value="other-q2"> Something else</label>
+      </div>
+      <div class="other-input" id="other-q2-wrap" style="display:none;">
+        <input type="text" id="other-q2" placeholder="Describe it briefly…" />
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-card">
+      <div class="q-header">
+        <div class="q-num">3</div>
+        <div>
+          <div class="q-label">What tools do you currently use to manage candidates, clients, and hiring workflows?</div>
+          <div class="q-hint">Select all that apply</div>
+        </div>
+      </div>
+      <div class="options">
+        <label class="option-label"><input type="checkbox" name="q3" value="Spreadsheets (Excel / Google Sheets)"> Spreadsheets (Excel / Google Sheets)</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="Email (Gmail / Outlook)"> Email (Gmail / Outlook)</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="ATS (e.g. Greenhouse, Lever, Workable)"> ATS — Greenhouse, Lever, Workable, etc.</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="CRM (e.g. Salesforce, HubSpot, Bullhorn)"> CRM — Salesforce, HubSpot, Bullhorn, etc.</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="LinkedIn Recruiter"> LinkedIn Recruiter</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="Slack / Teams for coordination"> Slack or Teams</label>
+        <label class="option-label"><input type="checkbox" name="q3" value="other-q3"> Other tools</label>
+      </div>
+      <div class="other-input" id="other-q3-wrap" style="display:none;">
+        <input type="text" id="other-q3" placeholder="List any other tools…" />
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-card">
+      <div class="q-header">
+        <div class="q-num">4</div>
+        <div>
+          <div class="q-label">If you could completely eliminate one task from your day, what would it be and why?</div>
+          <div class="q-hint">Be specific — this directly shapes what we build first</div>
+        </div>
+      </div>
+      <textarea name="q4" id="q4" placeholder="e.g. "I spend 2 hours every Monday updating our spreadsheet with candidate statuses from three different inboxes…""></textarea>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-card">
+      <div class="q-header">
+        <div class="q-num">5</div>
+        <div>
+          <div class="q-label">What's the biggest reason candidates or clients slip through the cracks during the hiring process?</div>
+        </div>
+      </div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q5" value="No centralized place to track everyone"> No centralized place to track everyone</label>
+        <label class="option-label"><input type="radio" name="q5" value="Slow follow-ups due to volume"> Slow follow-ups due to volume</label>
+        <label class="option-label"><input type="radio" name="q5" value="Team members aren't aligned on status"> Team members aren't aligned on status</label>
+        <label class="option-label"><input type="radio" name="q5" value="Manual reminders that get missed"> Manual reminders that get missed</label>
+        <label class="option-label"><input type="radio" name="q5" value="No visibility into where things are stuck"> No visibility into where things are stuck</label>
+        <label class="option-label"><input type="radio" name="q5" value="other-q5"> Something else</label>
+      </div>
+      <div class="other-input" id="other-q5-wrap" style="display:none;">
+        <input type="text" id="other-q5" placeholder="Describe it briefly…" />
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <div class="submit-meta">
+        <div class="submit-title">Ready to submit?</div>
+        <div class="submit-note">Anonymous &nbsp;·&nbsp; Your responses are never shared</div>
+      </div>
+      <button class="submit-btn" id="submitBtn">
+        Submit responses
+        <svg viewBox="0 0 16 16"><path d="M8.293 2.293a1 1 0 011.414 0l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414-1.414L11.586 9H2a1 1 0 010-2h9.586L8.293 3.707a1 1 0 010-1.414z"/></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Thank you -->
+  <div class="thankyou" id="thankyou">
+    <div class="ty-icon">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="16" fill="#16A34A" opacity="0.15"/>
+        <path d="M10 16.5l4.5 4.5 7.5-9" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Thank you — truly.</h2>
+    <p>Your answers go directly into what we prioritize building. We're solving these exact frustrations, and you've just helped us do that better.</p>
+    <div class="ty-badge">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="#16A34A"><path d="M8 1l2.5 5H14l-4 3.5 1.5 5L8 12l-3.5 2.5L6 9.5 2 6h3.5z"/></svg>
+      Response recorded
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function updateProgress() {
+    let done = 0;
+    if (document.querySelector('input[name="q1"]:checked')) done++;
+    if (document.querySelector('input[name="q2"]:checked')) done++;
+    if (document.querySelector('input[name="q3"]:checked')) done++;
+    if (document.getElementById('q4').value.trim().length > 2) done++;
+    if (document.querySelector('input[name="q5"]:checked')) done++;
+
+    const pct = Math.round((done / 5) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = done;
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
+
+  function setupOtherRadio(name, wrapperId) {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+      r.addEventListener('change', () => {
+        const wrap = document.getElementById(wrapperId);
+        wrap.style.display = (r.value === `other-${name}` && r.checked) ? 'block' : 'none';
+        if (r.type === 'radio' && r.value !== `other-${name}`) wrap.style.display = 'none';
+        updateProgress();
+      });
+    });
+  }
+
+  document.querySelectorAll('input[name="q3"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const otherCb = document.querySelector('input[name="q3"][value="other-q3"]');
+      document.getElementById('other-q3-wrap').style.display = otherCb?.checked ? 'block' : 'none';
+      updateProgress();
+    });
+  });
+
+  setupOtherRadio('q1', 'other-q1-wrap');
+  setupOtherRadio('q2', 'other-q2-wrap');
+  setupOtherRadio('q5', 'other-q5-wrap');
+
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => {
+    el.addEventListener('change', updateProgress);
+  });
+  document.getElementById('q4').addEventListener('input', updateProgress);
+
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    document.getElementById('survey').style.display = 'none';
+    document.getElementById('thankyou').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
